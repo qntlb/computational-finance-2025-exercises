@@ -115,7 +115,7 @@ public class SumOfGeneralizedCallOptions extends AbstractAssetMonteCarloProduct 
 	@Override
 	public RandomVariable getValue(double evaluationTime, AssetModelMonteCarloSimulationModel model)
 			throws CalculationException {
-		// We get S^1(T_1)
+		// We get L^1(T_1)
 		final RandomVariable firstAssetAtMaturity = model.getAssetValue(firstMaturity, firstAssetIndex);
 
 		// Payoff of the first call option
@@ -135,7 +135,7 @@ public class SumOfGeneralizedCallOptions extends AbstractAssetMonteCarloProduct 
 		 */
 		firstValues = firstValues.mult(firstMultiplier);
 
-		// We get S^2(T_2)
+		// We get L^2(T_2)
 		final RandomVariable secondAssetAtMaturity = model.getAssetValue(secondMaturity, secondAssetIndex);
 
 		// Payoff of the second call option

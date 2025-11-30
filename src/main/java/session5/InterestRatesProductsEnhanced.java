@@ -86,18 +86,27 @@ public class InterestRatesProductsEnhanced {
 		 * processes, possibly correlated, all following log-normal dynamics.
 		 */
 		final AssetModelMonteCarloSimulationModel simulationTwoDimGeometricBrownian =
-				new MonteCarloMultiAssetBlackScholesModel(twoDimBrownianMotion, initialLibors, 0,
-						volatilities, correlationMatrix);
+				new MonteCarloMultiAssetBlackScholesModel(
+						twoDimBrownianMotion,
+						initialLibors,
+						0,
+						volatilities,
+						correlationMatrix);
 
 		final double firstPeriodLength = secondFixingDate - firstFixingDate;//T_2-T_1
 		final double secondPeriodLength = secondPaymentDate - secondFixingDate;//T_3-T_2
 
 		// the constants we give to SumOfCallOptions
-		final double firstMultiplier = firstPaymentDateDiscountFactor * firstPeriodLength;
-		final double secondMultiplier = secondPaymentDateDiscountFactor * secondPeriodLength;
+		final double firstMultiplier = firstPaymentDateDiscountFactor * firstPeriodLength; // P(T_2;0) (T_2 - T_1)
+		final double secondMultiplier = secondPaymentDateDiscountFactor * secondPeriodLength; // P(T_3;0) (T_3 - T_2)
 
-		AbstractAssetMonteCarloProduct sumOfCallOptionsCalculator = new SumOfGeneralizedCallOptions(firstFixingDate,
-				secondFixingDate, firstStrike, secondStrike, firstMultiplier, secondMultiplier);
+		AbstractAssetMonteCarloProduct sumOfCallOptionsCalculator = new SumOfGeneralizedCallOptions(
+				firstFixingDate,
+				secondFixingDate,
+				firstStrike,
+				secondStrike,
+				firstMultiplier,
+				secondMultiplier);
 
 		return notional * sumOfCallOptionsCalculator.getValue(simulationTwoDimGeometricBrownian);
 	}

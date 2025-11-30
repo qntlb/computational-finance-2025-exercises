@@ -52,7 +52,7 @@ public class CapsTest {
 		
 		// testing the result
 		final double toleranceForMonteCarlo = 2 / Math.sqrt(numberOfSimulations);
-		assertEquals(4.7, capValue, toleranceForMonteCarlo);
+		assertEquals(0, (capValue - 4.7) / 4.7, toleranceForMonteCarlo);
 		System.out.println("The value of the cap is " + printNumberWithFourDecimalDigits.format(capValue));
 	}
 }
