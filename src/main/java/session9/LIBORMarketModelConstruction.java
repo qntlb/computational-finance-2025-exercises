@@ -5,6 +5,7 @@ import net.finmath.marketdata.model.curves.ForwardCurve;
 import net.finmath.marketdata.model.curves.ForwardCurveInterpolation;
 import net.finmath.montecarlo.BrownianMotion;
 import net.finmath.montecarlo.BrownianMotionFromMersenneRandomNumbers;
+import net.finmath.montecarlo.interestrate.LIBORModelMonteCarloSimulationModel;
 import net.finmath.montecarlo.interestrate.LIBORMonteCarloSimulationFromLIBORModel;
 import net.finmath.montecarlo.interestrate.TermStructureMonteCarloSimulationModel;
 import net.finmath.montecarlo.interestrate.models.LIBORMarketModelStandard;
@@ -98,6 +99,7 @@ public class LIBORMarketModelConstruction {
 	 * @throws CalculationException
 	 */
 	public static TermStructureMonteCarloSimulationModel createLIBORMarketModel(int numberOfPaths,
+//	public static LIBORModelMonteCarloSimulationModel createLIBORMarketModel(int numberOfPaths,
 			double simulationTimeStep, double LIBORPeriodLength, // T_i-T_{i-1}, we suppose it to be fixed
 			double LIBORRateTimeHorizon, // T_n
 			double[] fixingForGivenForwards, double[] givenForwards, double correlationDecayParam, double a, double b,
@@ -152,7 +154,7 @@ public class LIBORMarketModelConstruction {
 		final LIBORVolatilityModel volatilityModel = new LIBORVolatilityModelFromGivenMatrix(timeDiscretization,
 				LIBORPeriodDiscretization, volatility);
 
-		// Step 5 Create a correlation model rho_{i,j} = exp(−a ∗ |T_i −T_j|)
+		// Step 5 Create a correlation model rho_{i,j} = exp(− alpha ∗ |T_i −T_j|)
 		final LIBORCorrelationModel correlationModel = new LIBORCorrelationModelExponentialDecay(timeDiscretization,
 				LIBORPeriodDiscretization, LIBORPeriodDiscretization.getNumberOfTimes() - 1, // no factor reduction
 				correlationDecayParam);
